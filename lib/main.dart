@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
           return Dismissible(
             key: Key(item.title.toString()),
             background: Container(
-              color: Colors.red.withOpacity(0.2),
+              color: Color.fromARGB(255, 189, 94, 88).withOpacity(0.2),
             ),
             onDismissed: (direction) {
               remove(index);
