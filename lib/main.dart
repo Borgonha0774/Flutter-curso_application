@@ -50,7 +50,9 @@ class _HomePageState extends State<HomePage> {
             key: Key(item.title.toString()),
             value: item.done,
             onChanged: (bool? value) {
-              print(value);
+              setState(() {
+                item.done = value;
+              });
             },
           );
         },
