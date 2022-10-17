@@ -37,11 +37,17 @@ class _HomePageState extends State<HomePage> {
   var newTaskController = TextEditingController();
 
   void add() {
-    //if (newTaskController.text.isEmpty) return;
+    if (newTaskController.text.isEmpty) return;
     setState(() {
       widget.items.add(Item(title: newTaskController.text, done: false));
       //newTaskController.text = ''; // ou abaico
       newTaskController.clear();
+    });
+  }
+
+  void remove(int index) {
+    setState(() {
+      widget.items.removeAt((index));
     });
   }
 
@@ -65,25 +71,33 @@ class _HomePageState extends State<HomePage> {
         itemCount: widget.items.length,
         itemBuilder: (BuildContext ctxt, int index) {
           final item = widget.items[index];
-
-          return CheckboxListTile(
-            title: Text(item.title.toString()),
+          return Dismissible(
             key: Key(item.title.toString()),
-            value: item.done,
-            onChanged: (bool? value) {
-              setState(() {
-                item.done = value;
-              });
+            background: Container(
+              color: Colors.red.withOpacity(0.2),
+            ),
+            onDismissed: (direction) {
+              remove(index);
             },
+            child: CheckboxListTile(
+              title: Text(item.title.toString()),
+              value: item.done,
+              onChanged: (bool? value) {
+                setState(() {
+                  item.done = value;
+                });
+              },
+            ),
           );
+          /* return  */
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           return add();
         },
-        child: Icon(Icons.add),
         backgroundColor: Colors.pink,
+        child: Icon(Icons.add),
       ),
     );
   }
