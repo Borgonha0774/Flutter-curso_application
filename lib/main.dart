@@ -36,6 +36,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var newTaskController = TextEditingController();
 
+  void add() {
+    //if (newTaskController.text.isEmpty) return;
+    setState(() {
+      widget.items.add(Item(title: newTaskController.text, done: false));
+      //newTaskController.text = ''; // ou abaico
+      newTaskController.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +53,7 @@ class _HomePageState extends State<HomePage> {
           controller: newTaskController,
           keyboardType: TextInputType.text,
           style: const TextStyle(color: Colors.white, fontSize: 18),
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Nova Tarefa',
             labelStyle: TextStyle(
               color: Colors.white,
@@ -68,6 +77,13 @@ class _HomePageState extends State<HomePage> {
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          return add();
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.pink,
       ),
     );
   }
