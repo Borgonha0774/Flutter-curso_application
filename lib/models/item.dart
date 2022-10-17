@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_this
+
 import 'package:flutter/foundation.dart';
 
 class Item {
@@ -17,4 +19,4 @@ class Item {
     data['done'] = this.done;
     return data;
   }
-}
+}// end

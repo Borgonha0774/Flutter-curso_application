@@ -45,12 +45,14 @@ class _HomePageState extends State<HomePage> {
       widget.items.add(Item(title: newTaskController.text, done: false));
       //newTaskController.text = ''; // ou abaico
       newTaskController.clear();
+      save();
     });
   }
 
   void remove(int index) {
     setState(() {
       widget.items.removeAt((index));
+      save();
     });
   }
 
@@ -65,6 +67,11 @@ class _HomePageState extends State<HomePage> {
         widget.items = result;
       });
     }
+  }
+
+  save() async {
+    var prefs = await SharedPreferences.getInstance();
+    var data = prefs.setString('data', jsonEncode(widget.items));
   }
 
   _HomePageState() {
@@ -105,6 +112,7 @@ class _HomePageState extends State<HomePage> {
               onChanged: (bool? value) {
                 setState(() {
                   item.done = value;
+                  save();
                 });
               },
             ),
